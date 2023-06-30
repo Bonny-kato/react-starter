@@ -1,5 +1,3 @@
-import dayjs from "dayjs";
-
 export const isEmptyObject = <T>(obj: T | object) =>
     !Object.keys(obj ?? {}).length;
 
@@ -64,15 +62,6 @@ export const arrToLowerCase = (array: Array<string> = []) => {
  * */
 export const randomId = () => Math.random().toString(36).slice(2);
 
-export const formatDate = (date: string, defaultValue: string): string => {
-    if (!date) return defaultValue;
-    return dayjs(date).format("MMMM DD, YYYY");
-};
-
-export const isFormData = (payload: any): boolean => {
-    return payload instanceof FormData;
-};
-
 /**
  * Groups an array of objects by a specified property.
  *
@@ -91,17 +80,4 @@ export const groupArrOfObjByProperty = (
         prevObj[key] = nextObj;
         return prevObj;
     }, {});
-};
-
-export const hexToRgb = (hexColor: string, alpha?: number) => {
-    // Remove '#' symbol if present
-    hexColor = hexColor.replace("#", "");
-
-    // Parse hexadecimal components
-    const r = parseInt(hexColor.substring(0, 2), 16);
-    const g = parseInt(hexColor.substring(2, 4), 16);
-    const b = parseInt(hexColor.substring(4, 6), 16);
-
-    // Return RGB color string
-    return `rgb(${r}, ${g}, ${b},${alpha ?? 1})`;
 };
