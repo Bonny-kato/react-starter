@@ -22,12 +22,7 @@ export interface IRequestOptions {
     };
 }
 
-export const request = async (
-    type: string,
-    endpoint: string,
-    data?: any,
-    options?: IRequestOptions
-) => {
+export const request = async (type: string, endpoint: string, data?: any) => {
     // if (!navigator.onLine) throw new Error("Offline!");
 
     const API_TOKEN = getValueFromLocalStorage(localStorageKeys.AUTH_TOKEN, "");
@@ -54,34 +49,22 @@ export const request = async (
     return responseData;
 };
 
-export const get = async (endpoint: string, options?: IRequestOptions) => {
-    return await request("get", endpoint, null, options);
+export const get = async (endpoint: string) => {
+    return await request("get", endpoint, null);
 };
 
-export const patch = async (
-    endpoint: string,
-    data: object,
-    options?: IRequestOptions
-) => {
-    return await request("patch", endpoint, data, options);
+export const patch = async (endpoint: string, data: object) => {
+    return await request("patch", endpoint, data);
 };
 
-export const put = async (
-    endpoint: string,
-    data: object,
-    options?: IRequestOptions
-) => {
-    return await request("put", endpoint, data, options);
+export const put = async (endpoint: string, data: object) => {
+    return await request("put", endpoint, data);
 };
 
-export const post = async (
-    endpoint: string,
-    data: object,
-    options?: IRequestOptions
-) => {
-    return await request("post", endpoint, data, options);
+export const post = async (endpoint: string, data: object) => {
+    return await request("post", endpoint, data);
 };
 
-export const remove = async (endpoint: string, options?: IRequestOptions) => {
-    return await request("delete", endpoint, null, options);
+export const remove = async (endpoint: string) => {
+    return await request("delete", endpoint, null);
 };
