@@ -77,7 +77,7 @@ const ComboboxInput: FC<ComboboxProps> = ({
                         focus:outline-none font-normal tracking-wider py-2 border-[1.4px] xl:text-base md:text-sm  md:py-2.5 lg:py-2 sm:text-sm sm:leading-6     
         ${
             hasError
-                ? "border-primary focus:ring-primary/30 focus:border-primary"
+                ? "border-red-500 focus:ring-red-500/30 focus:border-red-500"
                 : "border-gray-300 focus:border-black focus:ring-black/40"
         }
       rounded-[5px] overflow-hidden

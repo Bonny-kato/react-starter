@@ -1,9 +1,10 @@
 import { ReactNode } from "react";
+import { isDevEnvironment } from "@/utils";
 
 const AuthLayout = ({ children }: ReactNode) => {
     return (
         <>
-            <main>
+            <main className={isDevEnvironment() ? "debug-screens" : ""}>
                 <header>header</header>
                 <section>{children}</section>
             </main>

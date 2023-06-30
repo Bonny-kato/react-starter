@@ -81,3 +81,7 @@ export const groupArrOfObjByProperty = (
         return prevObj;
     }, {});
 };
+
+export const isDevEnvironment = () => {
+    return import.meta.env.MODE === "development";
+};

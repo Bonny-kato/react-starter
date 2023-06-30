@@ -76,7 +76,7 @@ const Input: FC<InputProps> = forwardRef((props, ref) => {
                         }
                         ${
                             hasError
-                                ? "border-primary focus:ring-primary/30 focus:border-primary"
+                                ? "border-red-500 focus:ring-red-500/30 focus:border-red-500"
                                 : "border-gray-300 focus:border-black focus:ring-black/40"
                         }
                         rounded-[5px] overflow-hidden
