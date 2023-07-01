@@ -18,19 +18,16 @@ const useOpenAndCloseModalBasedRoute = (
         setOpen(true);
     }, []);
 
-    const closeModal = useCallback(
-        (navigateBack = true) => {
-            setOpen(false);
+    const closeModal = useCallback(() => {
+        setOpen(false);
 
-            setTimeout(() => {
-                if (callback) {
-                    callback();
-                }
-                navigate(-1);
-            }, 300);
-        },
-        [callback, navigate]
-    );
+        setTimeout(() => {
+            if (callback) {
+                callback();
+            }
+            navigate(-1);
+        }, 300);
+    }, [callback, navigate]);
 
     return { open, closeModal };
 };

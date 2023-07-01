@@ -1,17 +1,8 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { IModal } from "@/components/modal/modal";
-import { randomId } from "@/utils";
 
 const SlideOver: FC<IModal> = ({ onClose, open, children, dialogClass }) => {
-    const [modalId, setModalId] = useState<string | null>(null);
-
-    useEffect(() => {
-        if (open) {
-            setModalId(randomId());
-        }
-    }, [open]);
-
     return (
         <Transition appear show={open} as={"div"}>
             <Dialog

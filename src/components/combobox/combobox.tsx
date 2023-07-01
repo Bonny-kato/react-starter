@@ -47,7 +47,6 @@ const ComboboxInput: FC<ComboboxProps> = ({
     displayName,
     showErrMessage = false,
     loading = false,
-    reset = false,
     onBlur: handleBlur,
     label,
 }) => {
