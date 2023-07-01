@@ -17,3 +17,9 @@ export interface IPermission {
     displayName: string;
     description: string;
 }
+
+export type TQueryOptions = {
+    onSuccess?: (data: any, reqObj?: any) => void;
+    onError?: (error: any, variable?: any, context?: any) => void;
+    enabled?: boolean;
+};
