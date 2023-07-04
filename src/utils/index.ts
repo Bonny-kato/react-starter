@@ -85,3 +85,7 @@ export const groupArrOfObjByProperty = (
 export const isDevEnvironment = () => {
     return import.meta.env.MODE === "development";
 };
+
+export  const  isFormData = <T>(payload: T): boolean => {
+    return payload instanceof FormData;
+}

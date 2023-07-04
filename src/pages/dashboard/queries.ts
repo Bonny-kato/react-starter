@@ -1,4 +1,4 @@
-import { useQueries } from "@tanstack/react-query";
+import {useQuery } from "@tanstack/react-query";
 import { getUsers } from "@/api/end-points.ts";
 import { TQueryOptions } from "@/types";
 
@@ -8,5 +8,5 @@ export const dashboardQueryKeys = {
 };
 
 export const useUsers = (options?: TQueryOptions) => {
-    return useQueries(dashboardQueryKeys.users, getUsers, options);
+    return useQuery(dashboardQueryKeys.users, getUsers, options);
 };

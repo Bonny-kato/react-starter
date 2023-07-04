@@ -1,10 +1,10 @@
-import { QueryKey } from "react-query";
+import { QueryKey } from "@tanstack/react-query";
 import { queryClient } from "@/App";
 
 type TAction = "update" | "create" | "remove";
 type CacheData = any; // Define this according to your data type
 
-// Refreshing (invalidating or refetching) cache
+// Refreshing (invalidating or fetching) cache
 export const useRefreshCache = () => {
     return (queryKey: QueryKey, hardReload?: boolean) =>
         hardReload
