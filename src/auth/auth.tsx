@@ -1,18 +1,19 @@
 import { createContext, FC, ReactNode, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
 import useLocalStorageState from "@/utils/local-storage";
-import { IUser } from "@/types";
+import type { IUser, TFunction } from "@/types";
 
 interface AuthContextData {
     authUser: IUser;
     authToken: string;
-    signOut: (callback?: () => void) => void;
+    signOut: (callback?: TFunction) => void;
     saveAuthUser: (user: IUser, token: string) => void;
 }
 
 const AuthContext = createContext<AuthContextData | null>(null);
 
-export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
+const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -24,14 +25,19 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [authUser, setAuthUser] = useLocalStorageState("authUser", null);
     const [authToken, setAuthToken] = useLocalStorageState("authToken", null);
 
-    async function signOut(callback: () => void) {
+    function signOut(callback?: TFunction) {
+        const { pathname } = useLocation();
         setAuthToken(null);
         setAuthUser(null);
 
         if (callback && typeof callback === "function") {
-            await callback();
+            callback();
         }
-        navigate("/login");
+        navigate("/login", {
+            state: {
+                from: pathname,
+            },
+        });
     }
 
     const saveAuthUser = async (user: object, token: string) => {
@@ -48,10 +54,11 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     };
 
     return (
-        // @ts-ignore
         <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
     );
 };
+
+export default AuthProvider;
 
 export function useAuth(): AuthContextData {
     const authContext = useContext(AuthContext);

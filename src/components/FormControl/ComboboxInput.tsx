@@ -1,6 +1,7 @@
 import { Control, Controller } from "react-hook-form";
-import Combobox, { ComboboxProps } from "@/components/combobox";
 import { FC } from "react";
+
+import Combobox, { ComboboxProps } from "@/components/Combobox.tsx";
 
 export interface ComboboxInputProps
     extends Omit<ComboboxProps, "name" | "onChange" | "onBlur"> {

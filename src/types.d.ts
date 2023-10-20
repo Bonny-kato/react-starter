@@ -23,3 +23,5 @@ export type TQueryOptions = {
     onError?: (error: any, variable?: any, context?: any) => void;
     enabled?: boolean;
 };
+
+export type TFunction = () => void;

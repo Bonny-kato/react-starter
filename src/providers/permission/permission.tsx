@@ -1,15 +1,16 @@
-import React, { createContext, ReactNode, useContext } from "react";
-import { getValueFromLocalStorage } from "@/utils/local-storage";
-import { arrToLowerCase } from "@/utils";
-import { IUser } from "@/types";
 import { Navigate } from "react-router-dom";
+import React, { createContext, ReactNode, useContext } from "react";
+
+import { arrToLowerCase } from "@/utils";
+import { getValueFromLocalStorage } from "@/utils/local-storage";
+import type { IUser } from "@/types";
 
 type PermissionContextType = {
     userPermissions: string[];
 };
 
 export const PermissionContext = createContext<PermissionContextType | null>(
-    null
+    null,
 );
 
 // Hook to use the permission context. It throws an error if used outside the PermissionProvider
@@ -17,7 +18,7 @@ export const usePermission = (): PermissionContextType => {
     const permissionObj = useContext(PermissionContext);
     if (!permissionObj) {
         throw new Error(
-            "usePermission should be used inside of PermissionProvider"
+            "usePermission should be used inside of PermissionProvider",
         );
     }
     return permissionObj;
@@ -26,13 +27,13 @@ export const usePermission = (): PermissionContextType => {
 // Function, matchPermission, checks if user has required permissions
 export const matchPermission = (
     userPermissions: string[],
-    props: { permission?: string | string[] }
+    props: { permissions?: string | string[] },
 ): boolean => {
     let match: boolean;
-    const { permission = [] } = props;
-    const permissionArr = Array.isArray(permission)
-        ? arrToLowerCase(permission)
-        : [permission.toLowerCase()];
+    const { permissions = [] } = props;
+    const permissionArr = Array.isArray(permissions)
+        ? arrToLowerCase(permissions)
+        : [permissions.toLowerCase()];
     if (permissionArr.length === 0) match = true;
     else {
         match = permissionArr.some((p) => userPermissions.includes(p));
@@ -41,7 +42,7 @@ export const matchPermission = (
 };
 
 type TCan = {
-    permission?: string | string[];
+    permissions?: string | string[];
     redirectIfUnauthorized?: boolean;
     children: ReactNode;
 };
@@ -73,9 +74,9 @@ export const Cannot: React.FC<TCan> = ({ children, ...props }) => {
 };
 
 // checks if user has at least one of the required permissions
-export const hasAnyPermission = (permission: string | string[]): boolean => {
+export const hasAnyPermission = (permissions: string | string[]): boolean => {
     const userPermissions = getUserPermission();
-    return matchPermission(userPermissions, { permission });
+    return matchPermission(userPermissions, { permissions });
 };
 
 // Switch component renders the first Can component that meets the permission requirements from a group of Can and Cannot components

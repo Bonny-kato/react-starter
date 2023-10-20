@@ -1,7 +1,8 @@
-import { ReactNode } from "react";
+import { FC, ReactNode } from "react";
+
 import { isDevEnvironment } from "@/utils";
 
-const AuthLayout = ({ children }: ReactNode) => {
+const AuthLayout: FC<{ children: ReactNode }> = ({ children }) => {
     return (
         <>
             <main className={isDevEnvironment() ? "debug-screens" : ""}>

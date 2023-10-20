@@ -5,7 +5,6 @@ import {
     ChevronUpDownIcon,
     ExclamationCircleIcon,
 } from "@heroicons/react/24/outline";
-import SpinLoader from "@/components/loaders/spinner";
 import { twMerge } from "tailwind-merge";
 
 export interface ComboboxOption {
@@ -111,7 +110,7 @@ const ComboboxInput: FC<ComboboxProps> = ({
                     htmlFor={name}
                     className={twMerge(
                         "block text-sm font-medium leading-6 text-gray-900",
-                        labelClassName
+                        labelClassName,
                     )}
                 >
                     {label}
@@ -156,9 +155,7 @@ const ComboboxInput: FC<ComboboxProps> = ({
                             }
                         >
                             {loading ? (
-                                <div className={"py-3 center"}>
-                                    <SpinLoader className={"border-[2.5px]"} />
-                                </div>
+                                <div className={"py-3 center"}>loading ...</div>
                             ) : filteredOptions.length ? (
                                 filteredOptions.map((item) => (
                                     <Combobox.Option

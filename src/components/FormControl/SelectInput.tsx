@@ -4,7 +4,7 @@ import React, {
     SelectHTMLAttributes,
     useEffect,
     useState,
-} from "react";
+} from "react"
 import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
 import { twMerge } from "tailwind-merge";
 

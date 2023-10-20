@@ -1,5 +1,4 @@
-import React, { FC } from "react";
-import { twMerge } from "tailwind-merge";
+import { FC } from "react";
 
 interface ISvgProps {
     className?: string;
@@ -13,23 +12,17 @@ export const LoadingCircle: FC<ISvgProps> = ({
 }) => {
     return (
         <svg
-            className={twMerge(`animate-spin -ml-1 mr-3 h-5 w-5`, className)}
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
+            stroke="currentColor"
+            strokeWidth={strokeWidth}
             viewBox="0 0 24 24"
+            className={`animate-spin ${className}`}
         >
-            <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth={strokeWidth}
-            ></circle>
             <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                d="M12 2V6M12 18V22M6 12H2M22 12H18M19.0784 19.0784L16.25 16.25M19.0784 4.99994L16.25 7.82837M4.92157 19.0784L7.75 16.25M4.92157 4.99994L7.75 7.82837"
+                strokeLinecap="round"
+                strokeLinejoin="round"
             ></path>
         </svg>
     );

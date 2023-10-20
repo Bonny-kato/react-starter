@@ -1,6 +1,6 @@
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { FC, forwardRef, InputHTMLAttributes, ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
-import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     onUpload?: () => void;

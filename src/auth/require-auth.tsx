@@ -1,18 +1,16 @@
-import React, { FC, ReactNode, useState } from "react";
-import { useAuth } from "@/auth/auth";
+import { FC, ReactNode } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import PermissionProvider from "@/providers/permission";
+
+import { useAuth } from "@/auth";
 import AuthLayout from "@/layouts";
-import { IUser } from "@/types";
+import PermissionProvider from "@/providers/permission";
 
 const RequireAuth: FC<{ children: ReactNode }> = ({ children }) => {
-    const { authUser: currAuth } = useAuth();
-    const [authUser] = useState<IUser>(() => currAuth);
-
-    const location = useLocation();
+    const { authUser } = useAuth();
+    const { pathname } = useLocation();
 
     if (!authUser) {
-        return <Navigate to="/login" state={{ from: location }} replace />;
+        return <Navigate to="/login" state={{ from: pathname }} replace />;
     }
     return (
         <PermissionProvider>

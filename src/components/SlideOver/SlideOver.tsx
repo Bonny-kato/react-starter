@@ -1,6 +1,7 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { IModal } from "@/components/modal/modal";
+
+import { IModal } from "@/components/Modal";
 
 const SlideOver: FC<IModal> = ({ onClose, open, children, dialogClass }) => {
     return (

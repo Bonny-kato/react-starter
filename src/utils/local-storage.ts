@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-const STORE_KEY = "KIKUNDI";
+const STORE_KEY = "REACT-STATER";
 
 export function getValueFromLocalStorage(
     key: string | null = null,
-    defaultValue: any = null
+    defaultValue: any = null,
 ) {
     const store = JSON.parse(localStorage.getItem(STORE_KEY) || "{}");
     if (key === null) {
@@ -15,7 +15,7 @@ export function getValueFromLocalStorage(
 
 export function saveValueToLocalStorage(
     key: string,
-    value: string | boolean | Array<any> | object
+    value: string | boolean | Array<any> | object,
 ) {
     const store = getValueFromLocalStorage(null, {});
     store[key] = value;

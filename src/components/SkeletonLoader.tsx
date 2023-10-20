@@ -1,7 +1,7 @@
-import { twMerge } from "tailwind-merge";
 import { FC, HTMLAttributes } from "react";
+import { twMerge } from "tailwind-merge";
 
-export const ParagraphLoading: FC<HTMLAttributes<HTMLDivElement>> = ({
+const SkeletonLoader: FC<HTMLAttributes<HTMLDivElement>> = ({
     className,
     ...rest
 }) => {
@@ -10,8 +10,9 @@ export const ParagraphLoading: FC<HTMLAttributes<HTMLDivElement>> = ({
             {...rest}
             className={twMerge(
                 ` skeleton-loading rounded w-full py-2`,
-                className
+                className,
             )}
         ></p>
     );
 };
+export default SkeletonLoader;
