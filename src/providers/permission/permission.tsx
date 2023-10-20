@@ -1,7 +1,12 @@
+import _ from "lodash";
 import { Navigate } from "react-router-dom";
-import React, { createContext, ReactNode, useContext } from "react";
+import React, {
+    createContext,
+    ReactElement,
+    ReactNode,
+    useContext,
+} from "react";
 
-import { arrToLowerCase } from "@/utils";
 import { getValueFromLocalStorage } from "@/utils/local-storage";
 import type { IUser } from "@/types";
 
@@ -32,7 +37,7 @@ export const matchPermission = (
     let match: boolean;
     const { permissions = [] } = props;
     const permissionArr = Array.isArray(permissions)
-        ? arrToLowerCase(permissions)
+        ? _.map(permissions, _.toLower)
         : [permissions.toLowerCase()];
     if (permissionArr.length === 0) match = true;
     else {
@@ -47,7 +52,9 @@ type TCan = {
     children: ReactNode;
 };
 
-//The Can component is a permission check component that check if the user has necessary permissions and then either renders its children or initiates a redirect, based on the props.
+//The Can component is a permission check component
+// that checks if the user has necessary permissions and then either renders its children or initiates a redirect,
+// based on the props.
 export const Can: React.FC<TCan> = ({
     children,
     redirectIfUnauthorized = false,
@@ -66,7 +73,7 @@ export const Can: React.FC<TCan> = ({
     }
 };
 
-// Cannot is a component which only renders children when user does NOT have the required permission.
+// Cannot is a component which only renders children when a user does NOT have the required permission.
 export const Cannot: React.FC<TCan> = ({ children, ...props }) => {
     const { userPermissions: userPermissions = [] } = usePermission();
     const match = matchPermission(userPermissions, props);
@@ -82,7 +89,7 @@ export const hasAnyPermission = (permissions: string | string[]): boolean => {
 // Switch component renders the first Can component that meets the permission requirements from a group of Can and Cannot components
 export const Switch: React.FC<{ children: ReactNode }> = ({ children }) => {
     let match = false;
-    let element: JSX.Element | null = null;
+    let element: ReactElement | null = null;
     const { userPermissions: userPermissions } = usePermission();
 
     React.Children.forEach(children, (child) => {
