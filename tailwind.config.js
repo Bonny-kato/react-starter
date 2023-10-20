@@ -4,7 +4,19 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary: "#4f46e5",
+                primary: {
+                    50: "#FBF7FF",
+                    100: "#F3EBFC",
+                    200: "#E0CFFA",
+                    300: "#C7B0F5",
+                    400: "#927BED",
+                    500: "#4f46e5",
+                    600: "#413ACF",
+                    700: "#2E27AB",
+                    800: "#1E1A8A",
+                    900: "#110E66",
+                    950: "#080642",
+                },
                 secondary: "#3b82f6",
             },
             container: {
