@@ -1,8 +1,5 @@
-import {
-    getValueFromLocalStorage,
-    localStorageKeys,
-} from "@/utils/local-storage";
-import { isFormData } from "@/utils";
+import { localStorageKeys } from "@/constants.ts";
+import { isFormData, lStorage } from "@/utils";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -25,7 +22,7 @@ export interface IRequestOptions {
 export const request = async (type: string, endpoint: string, data?: any) => {
     // if (!navigator.onLine) throw new Error("Offline!");
 
-    const API_TOKEN = getValueFromLocalStorage(localStorageKeys.AUTH_TOKEN, "");
+    const API_TOKEN = lStorage.getValue(localStorageKeys.AUTH_TOKEN, "");
 
     const requestProps: TRequestProps = {
         method: type,

@@ -1,3 +1,5 @@
+import { localStorageKeys } from "@/constants.ts";
+import { lStorage } from "@/utils";
 import _ from "lodash";
 import { Navigate } from "react-router-dom";
 import React, {
@@ -7,7 +9,6 @@ import React, {
     useContext,
 } from "react";
 
-import { getValueFromLocalStorage } from "@/utils/local-storage";
 import type { IUser } from "@/types";
 
 type PermissionContextType = {
@@ -103,7 +104,7 @@ export const Switch: React.FC<{ children: ReactNode }> = ({ children }) => {
 
 // The PermissionProvider wraps its children to provide them access to the permission context
 export const getUserPermission = (): string[] => {
-    const user: IUser = getValueFromLocalStorage("authUser", {});
+    const user: IUser = lStorage.getValue(localStorageKeys.AUTH_USER, {});
     const { permissions: permissionObj = [] } = user?.roles[0] || {};
     return permissionObj.map((permission) => {
         return permission?.name?.toLowerCase() || "";

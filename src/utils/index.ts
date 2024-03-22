@@ -1,3 +1,5 @@
+import LocalStorage from "@bonny-kato/localstorage";
+
 /**
  * Adds an object to a collection if a condition is met.
  * @param condition - The expression to evaluate.
@@ -27,3 +29,6 @@ export const isDevEnvironment = () => {
 export const isFormData = <T>(payload: T): boolean => {
     return payload instanceof FormData;
 };
+
+
+export const lStorage = new LocalStorage("BIMA-BOAT");
