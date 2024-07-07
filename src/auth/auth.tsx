@@ -1,8 +1,8 @@
 import { createContext, FC, ReactNode, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { localStorageKeys } from "~/constants.ts";
+
 import { IUser, TFunction } from "~/types";
-import { lStorage } from "~/utils";
+import { lsKeys, lStorage } from "~/utils/local-storage";
 
 interface AuthContextData {
     authUser: IUser;
@@ -25,8 +25,8 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
     function signOut(callback?: TFunction) {
         lStorage.setValues({
-            [localStorageKeys.AUTH_TOKEN]: null,
-            [localStorageKeys.AUTH_USER]: null,
+            [lsKeys.AUTH_TOKEN]: null,
+            [lsKeys.AUTH_USER]: null,
         });
 
         if (callback && typeof callback === "function") {
@@ -41,15 +41,15 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
     const saveAuthUser = async (user: object, token: string) => {
         lStorage.setValues({
-            [localStorageKeys.AUTH_TOKEN]: token,
-            [localStorageKeys.AUTH_USER]: user,
+            [lsKeys.AUTH_TOKEN]: token,
+            [lsKeys.AUTH_USER]: user,
         });
         return navigate(from);
     };
 
     const value = {
-        authUser: lStorage.getValue(localStorageKeys.AUTH_USER),
-        authToken: lStorage.getValue(localStorageKeys.AUTH_TOKEN),
+        authUser: lStorage.getValue(lsKeys.AUTH_USER),
+        authToken: lStorage.getValue(lsKeys.AUTH_TOKEN),
         saveAuthUser,
         signOut,
     };

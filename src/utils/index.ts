@@ -1,4 +1,3 @@
-import LocalStorage from "@bonny-kato/localstorage";
 import clsx, { ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -27,12 +26,6 @@ export const randomId = () => Math.random().toString(36).slice(2);
 export const isDevEnvironment = () => {
     return import.meta.env.MODE === "development";
 };
-
-export const isFormData = <T>(payload: T): boolean => {
-    return payload instanceof FormData;
-};
-
-export const lStorage = new LocalStorage("BIMA-BOAT");
 
 export const cn = (...input: ClassValue[]) => {
     return twMerge(clsx(input));

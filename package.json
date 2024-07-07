@@ -13,10 +13,12 @@
     "@bonny-kato/localstorage": "^0.0.1",
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^2.0.18",
+    "@hookform/resolvers": "^3.9.0",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "^0.5.9",
     "@tanstack/react-query": "^4.29.19",
     "@tanstack/react-query-devtools": "^4.29.19",
+    "axios": "^1.7.2",
     "clsx": "^2.1.1",
     "csstype": "^3.0.10",
     "lodash": "^4.17.21",
@@ -27,7 +29,8 @@
     "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.14.1",
     "tailwind-merge": "^1.13.2",
-    "tailwindcss-debug-screens": "^2.2.1"
+    "tailwindcss-debug-screens": "^2.2.1",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.200",

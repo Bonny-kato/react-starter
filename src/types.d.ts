@@ -32,3 +32,8 @@ export type Icon = FC<{
     className?: string;
     strokeWidth?: string | number | undefined;
 }>;
+
+export interface ActionError<T = unknown> {
+    formError?: string;
+    formData: ?T;
+}
