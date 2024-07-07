@@ -1,28 +1,15 @@
-import GeneralErrorBoundary from "@/components/GeneralErrorBoundary.tsx";
-import HomePage from "@/pages/home/Home.tsx";
-import RootRoute from "@/pages/Root.tsx";
-import PrivateRoutes from "@/routes/private-routes.tsx";
-import PublicRoutes from "@/routes/public-routes.tsx";
-import {
-    createBrowserRouter,
-    createRoutesFromElements,
-    Route,
-    RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Root from "~/root.tsx";
+import privateRoutesConfig from "~/routes/private-routes.config.tsx";
+import publicRoutesConfig from "~/routes/public-routes.config.tsx";
 
-const router = createBrowserRouter(
-    createRoutesFromElements(
-        <Route path="/" element={<RootRoute />}>
-            <Route errorElement={<GeneralErrorBoundary />}>
-                <Route index element={<HomePage />} />
-                <Route path={"/dashboard/*"} element={<PrivateRoutes />} />
-                <Route path={"/*"} element={<PublicRoutes />} />
-            </Route>
-        </Route>,
-    ),
-);
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Root />,
+        children: [...privateRoutesConfig, ...publicRoutesConfig],
+    },
+]);
 
-const AppRoutes = () => {
-    return <RouterProvider router={router} />;
-};
+const AppRoutes = () => <RouterProvider router={router} />;
 export default AppRoutes;
