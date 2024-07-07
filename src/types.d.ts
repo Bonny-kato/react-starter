@@ -1,3 +1,5 @@
+import { FC } from "react";
+
 export interface IUser {
     firstName: string;
     surname: string;
@@ -25,3 +27,8 @@ export type TQueryOptions = {
 };
 
 export type TFunction = () => void;
+
+export type Icon = FC<{
+    className?: string;
+    strokeWidth?: string | number | undefined;
+}>;

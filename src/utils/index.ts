@@ -1,4 +1,6 @@
 import LocalStorage from "@bonny-kato/localstorage";
+import clsx, { ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 /**
  * Adds an object to a collection if a condition is met.
@@ -30,5 +32,8 @@ export const isFormData = <T>(payload: T): boolean => {
     return payload instanceof FormData;
 };
 
-
 export const lStorage = new LocalStorage("BIMA-BOAT");
+
+export const cn = (...input: ClassValue[]) => {
+    return twMerge(clsx(input));
+};
