@@ -1,9 +1,12 @@
+import { AuthProvider } from "@/auth/auth.tsx";
 import { Outlet } from "react-router-dom";
 
 const RootRoute = () => {
     return (
         <main>
-            <Outlet/>
+            <AuthProvider>
+                <Outlet />
+            </AuthProvider>
         </main>
     );
 };

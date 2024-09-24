@@ -10,6 +10,7 @@ function App() {
     return (
         <QueryClientProvider client={queryClient}>
             <AppRoutes />
+
             <Toaster position={"top-center"} />
             <ReactQueryDevtools
                 initialIsOpen={false}

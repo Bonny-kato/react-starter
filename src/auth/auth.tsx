@@ -1,8 +1,8 @@
-import { localStorageKeys } from "@/constants.ts";
+import { lStorageKeys } from "@/constants.ts";
+import type { IUser, TFunction } from "@/types";
 import { lStorage } from "@/utils";
 import { createContext, FC, ReactNode, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import type { IUser, TFunction } from "@/types";
 
 interface AuthContextData {
     authUser: IUser;
@@ -13,7 +13,7 @@ interface AuthContextData {
 
 const AuthContext = createContext<AuthContextData | null>(null);
 
-const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -23,11 +23,11 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
         },
     };
 
-    function signOut(callback?: TFunction) {
+    const signOut = (callback?: TFunction) => {
         lStorage.setValues({
-            [localStorageKeys.AUTH_TOKEN]: null,
-            [localStorageKeys.AUTH_USER]: null,
-        })
+            [lStorageKeys.AUTH_TOKEN]: null,
+            [lStorageKeys.AUTH_USER]: null,
+        });
 
         if (callback && typeof callback === "function") {
             callback();
@@ -37,19 +37,19 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
                 from: location.pathname,
             },
         });
-    }
+    };
 
     const saveAuthUser = async (user: object, token: string) => {
         lStorage.setValues({
-            [localStorageKeys.AUTH_TOKEN]: token,
-            [localStorageKeys.AUTH_USER]: user,
-        })
+            [lStorageKeys.AUTH_TOKEN]: token,
+            [lStorageKeys.AUTH_USER]: user,
+        });
         return navigate(from);
     };
 
     const value = {
-        authUser: lStorage.getValue(localStorageKeys.AUTH_USER),
-        authToken:lStorage.getValue(localStorageKeys.AUTH_TOKEN),
+        authUser: lStorage.getValue(lStorageKeys.AUTH_USER),
+        authToken: lStorage.getValue(lStorageKeys.AUTH_TOKEN),
         saveAuthUser,
         signOut,
     };
@@ -58,8 +58,6 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
         <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
     );
 };
-
-export default AuthProvider;
 
 export function useAuth(): AuthContextData {
     const authContext = useContext(AuthContext);

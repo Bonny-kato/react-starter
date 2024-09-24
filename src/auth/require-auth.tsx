@@ -1,11 +1,9 @@
-import { FC, ReactNode } from "react";
-import { Navigate, useLocation } from "react-router-dom";
-
 import { useAuth } from "@/auth";
 import AuthLayout from "@/layouts";
 import PermissionProvider from "@/providers/permission";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-const RequireAuth: FC<{ children: ReactNode }> = ({ children }) => {
+const RequireAuth = () => {
     const { authUser } = useAuth();
     const { pathname } = useLocation();
 
@@ -14,7 +12,9 @@ const RequireAuth: FC<{ children: ReactNode }> = ({ children }) => {
     }
     return (
         <PermissionProvider>
-            <AuthLayout>{children}</AuthLayout>
+            <AuthLayout>
+                <Outlet />
+            </AuthLayout>
         </PermissionProvider>
     );
 };

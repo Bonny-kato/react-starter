@@ -1,11 +1,13 @@
-import { Route, Routes } from "react-router-dom";
 import Dashboard from "@/pages/dashboard";
+import { RouteObject } from "react-router-dom";
 
-const DashboardRoutes = () => {
-    return (
-        <Routes>
-            <Route index element={<Dashboard />} />
-        </Routes>
-    );
+export const dashboardRoutes: RouteObject = {
+    path: "",
+    element: <Dashboard />,
+    children: [
+        {
+            path: "text",
+            element: "this is text component",
+        },
+    ],
 };
-export default DashboardRoutes;

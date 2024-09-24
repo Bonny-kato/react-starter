@@ -1,15 +1,12 @@
-import { Route, Routes } from "react-router-dom";
-
 import RequireAuth from "@/auth/require-auth";
-import DashboardRoutes from "@/pages/dashboard/routes/dashboard-routes.tsx";
+import { dashboardRoutes } from "@/pages/dashboard/routes/dashboard-routes.tsx";
+import { RouteObject } from "react-router-dom";
 
-const PrivateRoutes = () => {
-    return (
-        <RequireAuth>
-            <Routes>
-                <Route index element={<DashboardRoutes />} />
-            </Routes>
-        </RequireAuth>
-    );
+export const privateRoutes: RouteObject = {
+    path: "/dashboard",
+    element: <RequireAuth />,
+    children: [
+        dashboardRoutes,
+        //💡another route object will be going down here
+    ],
 };
-export default PrivateRoutes;
