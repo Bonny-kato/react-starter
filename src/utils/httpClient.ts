@@ -25,7 +25,7 @@ export const request = async (
 
     const config: Config = {
         method: type,
-        url: env.API_BASE_URL + endpoint,
+        url: env.VITE_API_BASE_URL + endpoint,
         headers: {
             Authorization: `Bearer ${token ?? ""}`,
         },

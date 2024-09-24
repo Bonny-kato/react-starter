@@ -1,5 +1,6 @@
 import { createContext, FC, ReactNode, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { AuthUserType } from "~/api/login/login-form-schema.ts";
 
 import type { IUser } from "~/types";
 import { lStorage, lStorageKeys } from "~/utils/localStorage.ts";
@@ -8,7 +9,7 @@ interface AuthContextData {
     authUser: IUser;
     authToken: string;
     signOut: (callback?: VoidFunction) => void;
-    saveAuthUser: (user: IUser, token: string) => void;
+    saveAuthUser: (user: Omit<AuthUserType, "token">, token: string) => void;
 }
 
 const AuthContext = createContext<AuthContextData | null>(null);
