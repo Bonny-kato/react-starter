@@ -1,32 +1,40 @@
-import { FC, HTMLAttributes, ReactNode } from "react";
-import { twMerge } from "tailwind-merge";
+import { FC, HTMLAttributes } from "react";
+import { cn } from "~/utils";
 
-interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
-    size?: number;
+export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
     imageUrl?: string;
     alt?: string;
-    icon?: ReactNode;
+    Icon?: FC<{ className?: string }>;
     className?: string;
+    imageClassName?: string;
+    iconClassName?: string;
 }
 
-const Avatar: FC<AvatarProps> = (props) => {
-    const { size = 40, imageUrl, alt, className, icon, ...rest } = props;
+const Avatar: FC<AvatarProps> = ({
+    imageUrl,
+    alt,
+    className,
+    Icon,
+    iconClassName,
+    imageClassName,
+    ...rest
+}) => {
     return (
         <div
             {...rest}
-            className={twMerge(
-                " bg-gray-200 center h-10 w-10 shrink-0 overflow-hidden rounded-full",
+            className={cn(
+                " center size-9 shrink-0 overflow-hidden rounded-full bg-seashell text-dark",
                 className
             )}
         >
             {imageUrl ? (
                 <img
-                    className={"h-full w-full object-cover"}
+                    className={cn("h-full w-full object-cover", imageClassName)}
                     src={imageUrl}
                     alt={alt}
                 />
-            ) : icon ? (
-                icon
+            ) : Icon ? (
+                <Icon className={cn("size-5 ", iconClassName)} />
             ) : null}
         </div>
     );

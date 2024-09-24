@@ -1,1 +1,1 @@
-export { default } from "./auth-layout.tsx";
+export { default } from "~/layouts/AuthLayout.tsx";

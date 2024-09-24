@@ -1,5 +1,5 @@
-import { lStorageKeys } from "@/constants.ts";
-import { isFormData, lStorage } from "@/utils";
+import { lStorageKeys } from "~/constants.ts";
+import { isFormData, lStorage } from "~/utils";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 

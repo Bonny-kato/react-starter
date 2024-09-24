@@ -1,7 +1,7 @@
-import { useAuth } from "@/auth";
-import AuthLayout from "@/layouts";
-import PermissionProvider from "@/providers/permission";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { useAuth } from "~/auth/Auth.tsx";
+import AuthLayout from "~/layouts";
+import PermissionProvider from "~/providers/permission";
 
 const RequireAuth = () => {
     const { authUser } = useAuth();

@@ -1,13 +1,13 @@
-import { lStorageKeys } from "@/constants.ts";
-import type { IUser, TFunction } from "@/types";
-import { lStorage } from "@/utils";
 import { createContext, FC, ReactNode, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
+import type { IUser } from "~/types";
+import { lStorage, lStorageKeys } from "~/utils/localStorage.ts";
 
 interface AuthContextData {
     authUser: IUser;
     authToken: string;
-    signOut: (callback?: TFunction) => void;
+    signOut: (callback?: VoidFunction) => void;
     saveAuthUser: (user: IUser, token: string) => void;
 }
 
@@ -23,7 +23,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
         },
     };
 
-    const signOut = (callback?: TFunction) => {
+    const signOut = (callback?: VoidFunction) => {
         lStorage.setValues({
             [lStorageKeys.AUTH_TOKEN]: null,
             [lStorageKeys.AUTH_USER]: null,
@@ -58,6 +58,8 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
         <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
     );
 };
+
+export default AuthProvider;
 
 export function useAuth(): AuthContextData {
     const authContext = useContext(AuthContext);

@@ -1,6 +1,8 @@
+//⚠️ Improving type-safety
+
 import { QueryKey } from "@tanstack/react-query";
 
-import { queryClient } from "@/App";
+import { queryClient } from "~/App";
 
 type CacheData = any; // Define this according to your data type
 
@@ -41,7 +43,7 @@ export const useRemoveFromCache =
         }));
     };
 
-export const useCacheData = <T>(queryKey: QueryKey, defaultValue: any): T => {
+export const useCacheData = <T>(queryKey: QueryKey, defaultValue: T): T => {
     const cachedData = queryClient.getQueryData<T>(queryKey);
     return cachedData || defaultValue;
 };

@@ -1,83 +1,100 @@
-import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
-import React, {
-    FC,
-    forwardRef,
-    ReactNode,
-    TextareaHTMLAttributes,
-} from "react";
-import { twMerge } from "tailwind-merge";
+import { forwardRef, TextareaHTMLAttributes } from "react";
+import {
+    ErrorIcon,
+    ErrorMessage,
+    FieldContainer,
+} from "~/components/FormControl/Common.tsx";
+import Label from "~/components/FormControl/Label.tsx";
 
-interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-    wrapperClass?: string;
-    labelClassName?: string;
+import { cn } from "~/utils";
+
+interface TextareaFieldProps
+    extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     hasError?: boolean;
-    showErrorMessage?: boolean;
-    showResizer?: boolean;
-    label: ReactNode;
 }
 
-const Textarea: FC<TextareaProps> = forwardRef((props, ref) => {
-    const {
-        className,
-        labelClassName,
-        showResizer = "none",
-        hasError = false,
-        showErrorMessage = false,
-        label,
-        wrapperClass,
-        ...rest
-    } = props;
+export interface TextareaProps
+    extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+    errorMessage?: string;
+    hasError?: boolean;
+    label?: string;
+    optional?: boolean;
+    supportiveText?: string;
+    labelClassName?: string;
+    wrapperClassName?: string;
+}
 
+export const TextareaField = forwardRef<
+    HTMLTextAreaElement,
+    TextareaFieldProps
+>(({ className, hasError, rows = 4, ...rest }, ref) => {
     return (
-        <div className={`${wrapperClass}  space-y-1`}>
-            {label && (
-                <label
-                    htmlFor={rest.name}
-                    className={twMerge(
-                        "block text-sm font-medium leading-6 text-gray-900",
-                        labelClassName
-                    )}
-                >
-                    {" "}
-                    {label}{" "}
-                </label>
+        <textarea
+            ref={ref}
+            rows={rows}
+            autoComplete={"off"}
+            {...rest}
+            className={cn(
+                `
+                    spin-button-none  spin-button-none w-full
+                     resize-none overflow-hidden rounded-lg border
+                    border-swiss-coffee py-2 font-normal tracking-wider text-gray-900
+                    placeholder-gray-400 shadow-sm ring-2 ring-transparent
+                    placeholder:text-sm placeholder:font-light placeholder:text-muted 
+                    focus:outline-none focus:ring-secondary/40 sm:text-sm sm:leading-6
+                    md:py-2.5 md:text-sm lg:py-1.5 xl:text-base 2xl:ring-4
+                `,
+                {
+                    "border-rose-500 focus:border-rose-500 focus:ring-rose-500/30":
+                        hasError,
+                },
+                className,
             )}
-
-            <div className={"relative "}>
-                <textarea
-                    // @ts-ignore
-                    ref={ref}
-                    {...rest}
-                    className={twMerge(
-                        `
-                        w-full text-black h-32 resize-none ring-transparent ring-2 2xl:ring-4 enable-transition  
-                        focus:outline-none  tracking-wider  py-2 border-[1.4px]  2xl:text-base  md:py-2.5 lg:py-2 
-                       
-                        ${
-                            hasError
-                                ? "border-red-500 focus:ring-red-500/30 focus:border-red-500"
-                                : "border-[#D2D4DA] focus:border-black focus:ring-black/40"
-                        }
-                        rounded-[5px] overflow-hidden
-                       placeholder-black/60 placeholder:font-light placeholder:text-sm
-                    `,
-                        className
-                    )}
-                ></textarea>
-                {hasError ? (
-                    <ExclamationCircleIcon
-                        className={
-                            "absolute right-2 top-0 h-5 w-5 text-red-500 bottom-0 my-auto"
-                        }
-                    />
-                ) : null}
-            </div>
-            {hasError && showErrorMessage ? (
-                <p className={"text-red-500  text-xs"}>
-                    Please provide valid {rest.name}
-                </p>
-            ) : null}
-        </div>
+        ></textarea>
     );
 });
-export default Textarea;
+
+TextareaField.displayName = "InputField";
+
+const TextareaInput = forwardRef<HTMLTextAreaElement, TextareaProps>(
+    (
+        {
+            label,
+            hasError,
+            optional,
+            errorMessage,
+            supportiveText,
+            labelClassName,
+            wrapperClassName,
+            ...rest
+        },
+        ref,
+    ) => {
+        return (
+            <FieldContainer className={wrapperClassName}>
+                {label && (
+                    <Label
+                        htmlFor={rest.id}
+                        label={label}
+                        optional={optional}
+                        className={labelClassName}
+                    />
+                )}
+                <div className={cn("relative", { "pb-1": supportiveText })}>
+                    <TextareaField ref={ref} hasError={hasError} {...rest} />
+                    {hasError && <ErrorIcon />}
+                </div>
+                {supportiveText && (
+                    <p className="text-xs/none leading-tight text-gray-800">
+                        {supportiveText}
+                    </p>
+                )}
+                {hasError && <ErrorMessage message={errorMessage} />}
+            </FieldContainer>
+        );
+    },
+);
+
+TextareaInput.displayName = "Textarea";
+
+export default TextareaInput;

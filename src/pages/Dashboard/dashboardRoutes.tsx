@@ -1,5 +1,5 @@
-import Dashboard from "@/pages/dashboard";
 import { RouteObject } from "react-router-dom";
+import Dashboard from "~/pages/Dashboard/index";
 
 export const dashboardRoutes: RouteObject = {
     path: "",

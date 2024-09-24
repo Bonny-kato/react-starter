@@ -1,7 +1,3 @@
-import { lStorageKeys } from "@/constants.ts";
-
-import type { IUser } from "@/types";
-import { lStorage } from "@/utils";
 import _ from "lodash";
 import React, {
     createContext,
@@ -10,6 +6,9 @@ import React, {
     useContext,
 } from "react";
 import { Navigate } from "react-router-dom";
+
+import type { IUser } from "~/types";
+import { lStorage, lStorageKeys } from "~/utils/localStorage";
 
 type PermissionContextType = {
     userPermissions: string[];

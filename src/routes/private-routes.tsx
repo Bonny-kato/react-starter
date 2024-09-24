@@ -1,6 +1,6 @@
-import RequireAuth from "@/auth/require-auth";
-import { dashboardRoutes } from "@/pages/dashboard/routes/dashboard-routes.tsx";
 import { RouteObject } from "react-router-dom";
+import RequireAuth from "~/auth/RequireAuth.tsx";
+import { dashboardRoutes } from "~/pages/Dashboard/dashboardRoutes.tsx";
 
 export const privateRoutes: RouteObject = {
     path: "/dashboard",

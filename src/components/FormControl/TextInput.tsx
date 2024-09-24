@@ -1,114 +1,97 @@
-import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
-import { FC, forwardRef, InputHTMLAttributes, ReactNode } from "react";
-import { twMerge } from "tailwind-merge";
+import { forwardRef, InputHTMLAttributes } from "react";
+import {
+    ErrorIcon,
+    ErrorMessage,
+    FieldContainer,
+} from "~/components/FormControl/Common.tsx";
+import Label from "~/components/FormControl/Label.tsx";
 
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-    onUpload?: () => void;
-    errorMessage?: string;
-    showErrorMessage?: boolean;
+import { cn } from "~/utils";
+
+interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
     hasError?: boolean;
-    label?: ReactNode;
-    labelClassName?: string;
-    wrapperClass?: string;
-    optional?: boolean;
 }
 
-const Input: FC<InputProps> = forwardRef((props, ref) => {
-    const {
-        onUpload: handleFileUpload,
-        errorMessage,
-        labelClassName,
-        showErrorMessage = false,
-        hasError = false,
-        label,
-        optional,
-        wrapperClass,
-        className,
-        ...rest
-    } = props;
+export interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
+    errorMessage?: string;
+    hasError?: boolean;
+    label?: string;
+    optional?: boolean;
+    supportiveText?: string;
+    labelClassName?: string;
+    wrapperClassName?: string;
+}
 
-    const isFileInput = rest.type === "file";
+export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
+    ({ className, hasError, ...rest }, ref) => {
+        return (
+            <input
+                ref={ref}
+                type="text"
+                autoComplete={"off"}
+                {...rest}
+                className={cn(
+                    `
+                    spin-button-none w-full
+                    overflow-hidden rounded-lg border border-swiss-coffee
+                    py-2 font-normal tracking-wider text-gray-900
+                    placeholder-gray-400 shadow-sm ring-2 ring-transparent
+                    placeholder:text-sm placeholder:font-light placeholder:text-muted 
+                    focus:outline-none focus:ring-secondary/40 disabled:bg-gray-100 sm:text-sm
+                    sm:leading-6 md:py-2.5 md:text-sm lg:py-1.5 xl:text-base 2xl:ring-4
+                `,
+                    {
+                        "border-rose-500 focus:border-rose-500 focus:ring-rose-500/30":
+                            hasError,
+                    },
+                    className,
+                )}
+            />
+        );
+    },
+);
 
-    const handleClick = () => {
-        if (isFileInput && !!handleFileUpload) {
-            handleFileUpload();
-        }
-    };
+InputField.displayName = "InputField";
 
-    return (
-        // @ts-ignore
-        <div
-            className={twMerge(`${label ? "space-y-1" : ""} `, wrapperClass)}
-            onClick={handleClick}
-        >
-            {label && (
-                <label
-                    htmlFor={rest.name}
-                    className={twMerge(
-                        " text-sm items-between font-medium leading-6 text-gray-900",
-                        labelClassName
-                    )}
-                >
-                    <span>{label}</span>
-                    {optional && (
-                        <small className={"text-gray-400 tracking-wide"}>
-                            Optional
-                        </small>
-                    )}
-                </label>
-            )}
-
-            <div className={`relative`}>
-                <input
-                    // @ts-ignore
-                    ref={ref}
-                    {...rest}
-                    autoComplete={"off"}
-                    autoCorrect={"off"}
-                    className={twMerge(
-                        `
-                        w-full text-gray-900 shadow-sm ring-transparent ring-2 2xl:ring-4 enable-transition  
-                        focus:outline-none font-normal tracking-wider py-2 border-[1.4px] xl:text-base md:text-sm  md:py-2.5 lg:py-2 sm:text-sm sm:leading-6
-                        ${
-                            isFileInput
-                                ? "pl-28 cursor-pointer"
-                                : "px-2 placeholder-[#646464]"
-                        }
-                        ${
-                            hasError
-                                ? "border-red-500 focus:ring-red-500/30 focus:border-red-500"
-                                : "border-gray-300 focus:border-black focus:ring-black/40"
-                        }
-                        rounded-[5px] overflow-hidden
-                       placeholder-gray-400 placeholder:font-light placeholder:text-sm
-                    `,
-                        className
-                    )}
-                />
-                {hasError ? (
-                    <ExclamationCircleIcon
-                        className={
-                            "absolute right-2 pointer-events-none top-0 h-5 w-5 text-red-500 bottom-0 my-auto"
-                        }
+const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
+    (
+        {
+            label,
+            hasError,
+            optional,
+            errorMessage,
+            supportiveText,
+            labelClassName,
+            wrapperClassName,
+            ...rest
+        },
+        ref,
+    ) => {
+        return (
+            <FieldContainer className={wrapperClassName}>
+                {label && (
+                    <Label
+                        htmlFor={rest.id}
+                        label={label}
+                        optional={optional}
+                        className={labelClassName}
                     />
-                ) : null}
-                <button
-                    type={"button"}
-                    className={`absolute text-gray-900 ${
-                        isFileInput ? "" : "hidden"
-                    } top-[1px] px-3 bottom-[1px] rounded-l z-10 left-[1px] bg-[#D2D4DA]`}
-                >
-                    Choose File
-                </button>
-            </div>
-            {hasError && showErrorMessage ? (
-                <p className={"text-red-500  text-xs"}>
-                    {errorMessage
-                        ? errorMessage
-                        : `Please provide valid ${className}`}
-                </p>
-            ) : null}
-        </div>
-    );
-});
-export default Input;
+                )}
+                <div className={cn("relative", { "pb-1": supportiveText })}>
+                    <InputField ref={ref} hasError={hasError} {...rest} />
+                    {hasError && <ErrorIcon />}
+                </div>
+                {supportiveText && (
+                    <p className="text-xs/none leading-tight text-gray-800">
+                        {supportiveText}
+                    </p>
+                )}
+                {hasError && <ErrorMessage message={errorMessage} />}
+            </FieldContainer>
+        );
+    },
+);
+
+TextInput.displayName = "TextInput";
+
+export default TextInput;

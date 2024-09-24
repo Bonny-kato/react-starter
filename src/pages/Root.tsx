@@ -1,9 +1,10 @@
-import { AuthProvider } from "@/auth/auth.tsx";
 import { Outlet } from "react-router-dom";
+import { AuthProvider } from "~/auth/Auth.tsx";
+import { isDevMode } from "~/utils";
 
 const RootRoute = () => {
     return (
-        <main>
+        <main className={isDevMode ? "debug-screens" : ""}>
             <AuthProvider>
                 <Outlet />
             </AuthProvider>

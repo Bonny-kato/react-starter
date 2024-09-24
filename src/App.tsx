@@ -2,7 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 
-import AppRoutes from "@/routes";
+import AppRoutes from "~/routes";
 
 export const queryClient = new QueryClient();
 

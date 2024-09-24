@@ -8,8 +8,16 @@ type TUseOpenAndCloseModalBasedRoute = {
     closeModal: () => void;
 };
 
-const useOpenAndCloseModalBasedRoute = (
-    callback?: Callback
+interface IUseRouteModal {
+    callback?: Callback;
+    navigateTo?: {
+        url: string;
+        replace?: boolean;
+    };
+}
+
+const useRouteModal = (
+    options?: IUseRouteModal,
 ): TUseOpenAndCloseModalBasedRoute => {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
@@ -22,14 +30,18 @@ const useOpenAndCloseModalBasedRoute = (
         setOpen(false);
 
         setTimeout(() => {
-            if (callback) {
-                callback();
+            if (options?.callback) {
+                options.callback();
             }
-            navigate(-1);
+            options?.navigateTo
+                ? navigate(options.navigateTo.url, {
+                      replace: !!options?.navigateTo?.replace,
+                  })
+                : navigate(-1);
         }, 300);
-    }, [callback, navigate]);
+    }, [navigate, options]);
 
     return { open, closeModal };
 };
 
-export default useOpenAndCloseModalBasedRoute;
+export default useRouteModal;

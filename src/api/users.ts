@@ -1,4 +1,4 @@
-import { get } from "@/api/request.ts";
+import { get } from "~/api/request.ts";
 
 // This file is responsible for defining all the endpoints that are used for data querying or data submission.
 
