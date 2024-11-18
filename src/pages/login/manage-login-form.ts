@@ -15,7 +15,6 @@ const useManageLoginForm = (actionData?: LoginFormType) => {
     const fields: FormField[] = [
         {
             name: "username",
-            type: "text",
             label: "Username",
             register,
             hasError: !!actionData?.username || !!errors.username?.message,

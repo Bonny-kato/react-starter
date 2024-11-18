@@ -7,6 +7,7 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <Root />,
+
         children: [...privateRoutesConfig, ...publicRoutesConfig],
     },
 ]);

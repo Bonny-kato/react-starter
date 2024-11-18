@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, HTMLAttributes } from "react";
 
 export interface IUser {
     firstName: string;
@@ -36,4 +36,12 @@ export type Icon = FC<{
 export interface ActionError<T = unknown> {
     formError?: string;
     formData: ?T;
+}
+
+export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
+    imageUrl?: string;
+    alt?: string;
+    Icon?: FC<{ className?: string }>;
+    className?: string;
+    iconClassName?: string;
 }

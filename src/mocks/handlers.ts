@@ -9,5 +9,9 @@ const handlers = [
     http.post(`${API_BASE_URL}/login`, () =>
         HttpResponse.json(authUser, { status: HTTP_OK }),
     ),
+
+    http.get(`${API_BASE_URL}/users`, () =>
+        HttpResponse.json({ message: "sample users" }),
+    ),
 ];
 export default handlers;
